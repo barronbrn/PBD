@@ -5,21 +5,17 @@
 @section('content')
 <div class="pagetitle">
     <h1>Dashboard</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+        </ol>
+    </nav>
 </div>
 
 <section class="section dashboard">
     <div class="row">
 
         <!-- Statistik -->
-        <div class="col-lg-3 col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Total Faktur</h5>
-                    <h3>{{ $totalFaktur }}</h3>
-                </div>
-            </div>
-        </div>
-
         <div class="col-lg-3 col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -32,8 +28,8 @@
         <div class="col-lg-3 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Pelanggan</h5>
-                    <h3>{{ $totalPelanggan }}</h3>
+                    <h5 class="card-title">Total Jenis Obat</h5>
+                    <h3>{{ $totalJenisObat }}</h3>
                 </div>
             </div>
         </div>
@@ -41,8 +37,17 @@
         <div class="col-lg-3 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Pembayaran</h5>
-                    <h3>{{ $totalPembayaran }}</h3>
+                    <h5 class="card-title">Total Transaksi</h5>
+                    <h3>{{ $totalTransaksi }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Stok Obat</h5>
+                    <h3>{{ $totalStokObat }}</h3>
                 </div>
             </div>
         </div>
@@ -55,19 +60,25 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>No Faktur</th>
-                                <th>Pelanggan</th>
-                                <th>Total</th>
+                                <th>No Transaksi</th>
+                                <th>Kode Obat</th>
+                                <th>Qty</th>
+                                <th>Nilai Buku</th>
+                                <th>Nilai Fisik</th>
+                                <th>Selisih Nilai</th>
                                 <th>Tanggal</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($transaksiTerbaru as $transaksi)
                                 <tr>
-                                    <td>{{ $transaksi->no_faktur }}</td>
-                                    <td>{{ $transaksi->pelanggan->nama_pelanggan }}</td>
-                                    <td>Rp {{ number_format($transaksi->total, 0, ',', '.') }}</td>
-                                    <td>{{ $transaksi->tanggal_faktur }}</td>
+                                    <td>{{ $transaksi->no_transaksi }}</td>
+                                    <td>{{ $transaksi->kode_obat }}</td>
+                                    <td>{{ $transaksi->qty }}</td>
+                                    <td>Rp {{ number_format($transaksi->nilai_buku, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($transaksi->nilai_fisik, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($transaksi->selisih_nilai, 0, ',', '.') }}</td>
+                                    <td>{{ $transaksi->created_at->format('d-m-Y') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

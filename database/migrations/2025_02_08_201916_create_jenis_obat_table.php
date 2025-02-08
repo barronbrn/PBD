@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('faktur', function (Blueprint $table) {
-            $table->string('no_faktur')->primary();
-            $table->date('tanggal_faktur');
-            $table->foreignId('pelanggan_id')->constrained('pelanggan')->onDelete('cascade');
+        Schema::create('jenis_obat', function (Blueprint $table) {
+            $table->id();
+            $table->string('satuan')->unique();
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('faktur');
+        Schema::dropIfExists('jenis_obat');
     }
 };
