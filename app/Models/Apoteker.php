@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Apoteker extends Model
 {
+
     use HasFactory;
 
     protected $table = 'apoteker';
@@ -18,4 +18,5 @@ class Apoteker extends Model
         'alamat_apoteker',
         'no_telepon',
     ];
+
 }

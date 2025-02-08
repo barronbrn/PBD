@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Faktur extends Model
 {
     //
+
     use HasFactory;
     protected $table = 'faktur';
     protected $primaryKey = 'no_faktur';
@@ -24,4 +25,5 @@ class Faktur extends Model
     {
         return $this->belongsTo(Pelanggan::class, 'pelanggan_id');
     }
+
 }

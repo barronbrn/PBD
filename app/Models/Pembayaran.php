@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Pembayaran extends Model
 {
+
     use HasFactory;
 
     protected $table = 'pembayaran';
@@ -25,4 +26,6 @@ class Pembayaran extends Model
         return $this->belongsTo(Faktur::class, 'no_faktur');
     }
 }
+
+
 

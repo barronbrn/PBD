@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class FakturObat extends Model
 {
+
     use HasFactory;
 
     protected $table = 'faktur_obat';
@@ -28,4 +28,5 @@ class FakturObat extends Model
         return $this->belongsTo(Obat::class, 'kode_obat');
     }
 }
+
 
