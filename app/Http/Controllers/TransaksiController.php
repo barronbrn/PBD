@@ -35,7 +35,17 @@ class TransaksiController extends Controller
             'selisih_nilai' => 'required|numeric',
         ]);
 
-        Transaksi::create($request->all());
+        // Simpan data obat
+        Transaksi::create([
+            'no_transaksi' => $request->no_transaksi,
+            'kode_obat' => $request->kode_obat,
+            'qty' => $request->qty,
+            'selisin' => $request->selisin,
+            'nilai_buku' => $request->nilai_buku,
+            'nilai_fisik' => $request->nilai_fisik,
+            'selisih_nilai' => $request->selisih_nilai,
+        ]);
+        
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan');
     }
 

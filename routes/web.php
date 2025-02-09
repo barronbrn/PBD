@@ -8,14 +8,17 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\FakturObatController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\JenisObatController;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
 
 // CRUD Routes
 Route::resource('obat', ObatController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('faktur', FakturController::class);
+Route::resource('transaksi', TransaksiController::class);
+Route::resource('JenisObat', JenisObatController::class);
 // Route::resource('apotek', ApotekerController::class);
 Route::resource('pembayaran', PembayaranController::class);
 Route::resource('faktur_obat', FakturObatController::class);
