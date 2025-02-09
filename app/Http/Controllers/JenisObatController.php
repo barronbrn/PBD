@@ -7,45 +7,60 @@ use Illuminate\Http\Request;
 
 class JenisObatController extends Controller
 {
+    // Menampilkan daftar jenis obat
     public function index()
     {
         $jenisObat = JenisObat::all();
         return view('jenis_obat.index', compact('jenisObat'));
     }
 
+    // Menampilkan form tambah jenis obat
     public function create()
     {
         return view('jenis_obat.create');
     }
 
+    // Menyimpan data jenis obat baru
     public function store(Request $request)
     {
         $request->validate([
-            'satuan' => 'required|unique:jenis_obat',
+            'satuan' => 'required|unique:jenis_obat,satuan',
         ]);
 
         JenisObat::create($request->all());
-        return redirect()->route('jenis-obat.index')->with('success', 'Jenis Obat berhasil ditambahkan');
+
+        return redirect()->route('jenis-obat.index')
+            ->with('success', 'Jenis Obat berhasil ditambahkan.');
     }
 
-    public function edit(JenisObat $jenisObat)
+    // Menampilkan form edit jenis obat
+    public function edit($id)
     {
+        $jenisObat = JenisObat::findOrFail($id);
         return view('jenis_obat.edit', compact('jenisObat'));
     }
 
-    public function update(Request $request, JenisObat $jenisObat)
+    // Mengupdate data jenis obat
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'satuan' => 'required|unique:jenis_obat,satuan,' . $jenisObat->id,
+            'satuan' => 'required|unique:jenis_obat,satuan,' . $id,
         ]);
 
+        $jenisObat = JenisObat::findOrFail($id);
         $jenisObat->update($request->all());
-        return redirect()->route('jenis-obat.index')->with('success', 'Jenis Obat berhasil diperbarui');
+
+        return redirect()->route('jenis-obat.index')
+            ->with('success', 'Jenis Obat berhasil diperbarui.');
     }
 
-    public function destroy(JenisObat $jenisObat)
+    // Menghapus data jenis obat
+    public function destroy($id)
     {
+        $jenisObat = JenisObat::findOrFail($id);
         $jenisObat->delete();
-        return redirect()->route('jenis-obat.index')->with('success', 'Jenis Obat berhasil dihapus');
+
+        return redirect()->route('jenis-obat.index')
+            ->with('success', 'Jenis Obat berhasil dihapus.');
     }
 }

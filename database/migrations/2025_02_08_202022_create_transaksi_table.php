@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('no_transaksi');
             $table->string('kode_obat');
             $table->integer('qty');
-            $table->decimal('selisin', 15, 2);
+            $table->decimal('selisih', 15, 2);
             $table->decimal('nilai_buku', 15, 2);
             $table->decimal('nilai_fisik', 15, 2);
             $table->decimal('selisih_nilai', 15, 2);

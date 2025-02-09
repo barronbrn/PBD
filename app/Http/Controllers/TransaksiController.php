@@ -11,14 +11,14 @@ class TransaksiController extends Controller
     // Menampilkan daftar transaksi
     public function index()
     {
-        $transaksi = Transaksi::with('obat')->get(); // Ambil data transaksi beserta relasi obat
+        $transaksi = Transaksi::with('obat')->get();
         return view('transaksi.index', compact('transaksi'));
     }
 
     // Menampilkan form tambah transaksi
     public function create()
     {
-        $obat = Obat::all(); // Ambil semua data obat untuk dropdown
+        $obat = Obat::all();
         return view('transaksi.create', compact('obat'));
     }
 
@@ -29,24 +29,16 @@ class TransaksiController extends Controller
             'no_transaksi' => 'required',
             'kode_obat' => 'required|exists:obat,kode',
             'qty' => 'required|integer',
-            'selisin' => 'required|numeric',
+            'selisih' => 'required|numeric',
             'nilai_buku' => 'required|numeric',
             'nilai_fisik' => 'required|numeric',
             'selisih_nilai' => 'required|numeric',
         ]);
 
-        // Simpan data obat
-        Transaksi::create([
-            'no_transaksi' => $request->no_transaksi,
-            'kode_obat' => $request->kode_obat,
-            'qty' => $request->qty,
-            'selisin' => $request->selisin,
-            'nilai_buku' => $request->nilai_buku,
-            'nilai_fisik' => $request->nilai_fisik,
-            'selisih_nilai' => $request->selisih_nilai,
-        ]);
-        
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil ditambahkan');
+        Transaksi::create($request->all());
+
+        return redirect()->route('transaksi.index')
+            ->with('success', 'Transaksi berhasil ditambahkan.');
     }
 
     // Menampilkan form edit transaksi
@@ -54,8 +46,8 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::where('no_transaksi', $noTransaksi)
             ->where('kode_obat', $kodeObat)
-            ->firstOrFail(); // Ambil data transaksi berdasarkan no_transaksi dan kode_obat
-        $obat = Obat::all(); // Ambil semua data obat untuk dropdown
+            ->firstOrFail();
+        $obat = Obat::all();
         return view('transaksi.edit', compact('transaksi', 'obat'));
     }
 
@@ -64,7 +56,7 @@ class TransaksiController extends Controller
     {
         $request->validate([
             'qty' => 'required|integer',
-            'selisin' => 'required|numeric',
+            'selisih' => 'required|numeric',
             'nilai_buku' => 'required|numeric',
             'nilai_fisik' => 'required|numeric',
             'selisih_nilai' => 'required|numeric',
@@ -74,16 +66,27 @@ class TransaksiController extends Controller
             ->where('kode_obat', $kodeObat)
             ->firstOrFail();
         $transaksi->update($request->all());
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diperbarui');
+
+        return redirect()->route('transaksi.index')
+            ->with('success', 'Transaksi berhasil diperbarui.');
     }
 
     // Menghapus data transaksi
     public function destroy($noTransaksi, $kodeObat)
     {
+        // Pastikan data transaksi yang akan dihapus ada
         $transaksi = Transaksi::where('no_transaksi', $noTransaksi)
             ->where('kode_obat', $kodeObat)
-            ->firstOrFail();
+            ->first(); // Gunakan first(), bukan findOrFail()
+
+        if (!$transaksi) {
+            return redirect()->route('transaksi.index')
+            ->with('error', 'Transaksi tidak ditemukan.');
+        }
+
         $transaksi->delete();
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus');
+
+        return redirect()->route('transaksi.index')
+        ->with('success', 'Transaksi berhasil dihapus.');
     }
 }

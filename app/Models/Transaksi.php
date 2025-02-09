@@ -8,19 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Transaksi extends Model
 {
     use HasFactory;
-    // Tentukan nama tabel secara eksplisit
-    protected $table = 'transaksi';
+    protected $table = 'transaksi'; // Tentukan nama tabel
+    protected $primaryKey = ['no_transaksi', 'kode_obat']; // Tentukan primary key komposit
+    public $incrementing = false; // Non-aktifkan auto-increment
 
-    // Tentukan primary key komposit
-    protected $primaryKey = ['no_transaksi', 'kode_obat'];
-    public $incrementing = false;
-
-    // Kolom yang bisa diisi
     protected $fillable = [
         'no_transaksi',
         'kode_obat',
         'qty',
-        'selisin',
+        'selisih',
         'nilai_buku',
         'nilai_fisik',
         'selisih_nilai'
@@ -30,5 +26,10 @@ class Transaksi extends Model
     public function obat()
     {
         return $this->belongsTo(Obat::class, 'kode_obat');
+    }
+
+    public function getKeyName()
+    {
+        return 'no_transaksi'; // Laravel hanya bisa menangani satu primary key
     }
 }

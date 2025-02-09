@@ -87,7 +87,7 @@
             </li><!-- End Obat Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/JenisObat">
+                <a class="nav-link collapsed" href="/jenis-obat">
                     <i class="bi bi-question-circle"></i>
                     <span>Jenis Obat</span>
                 </a>

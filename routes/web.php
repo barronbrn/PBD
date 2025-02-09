@@ -2,12 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\FakturController;
-use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\FakturObatController;
-use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\JenisObatController;
 
@@ -15,10 +10,14 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // CRUD Routes
 Route::resource('obat', ObatController::class);
-Route::resource('pelanggan', PelangganController::class);
-Route::resource('faktur', FakturController::class);
-Route::resource('transaksi', TransaksiController::class);
-Route::resource('JenisObat', JenisObatController::class);
-// Route::resource('apotek', ApotekerController::class);
-Route::resource('pembayaran', PembayaranController::class);
-Route::resource('faktur_obat', FakturObatController::class);
+Route::resource('jenis-obat', JenisObatController::class);
+Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index'); // Menampilkan daftar transaksi
+Route::get('/transaksi/create', [TransaksiController::class, 'create'])->name('transaksi.create'); // Form tambah transaksi
+Route::post('/transaksi', [TransaksiController::class, 'store'])->name('transaksi.store'); // Simpan transaksi baru
+
+Route::get('/transaksi/{noTransaksi}/{kodeObat}/edit', [TransaksiController::class, 'edit'])->name('transaksi.edit'); // Form edit
+Route::put('/transaksi/{noTransaksi}/{kodeObat}', [TransaksiController::class, 'update'])->name('transaksi.update'); // Update transaksi
+
+Route::delete('/transaksi/{noTransaksi}/{kodeObat}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+
+// Route::delete('/transaksi/{noTransaksi}/{kodeObat}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy'); // Hapus transaksi
