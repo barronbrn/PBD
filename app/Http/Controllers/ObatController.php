@@ -27,11 +27,9 @@ class ObatController extends Controller
     {
         $request->validate([
             'kode' => 'required|unique:obat,kode',
-            'obat' => 'required',
-            'fiskk' => 'required',
             'nama_obat' => 'required',
             'id_jenis_obat' => 'required|exists:jenis_obat,id',
-            'harga_pokok' => 'required|numeric',
+            'harga_pokok' => 'required|integer',
             'stock' => 'required|integer',
         ]);
 
@@ -43,7 +41,7 @@ class ObatController extends Controller
     public function edit($kode)
     {
         $obat = Obat::findOrFail($kode); // Ambil data obat berdasarkan kode
-        $jenisObat = JenisObat::all(); // Ambil semua data jenis obat untuk dropdown
+        $jenisObat = JenisObat::all(); // Ambil semua data jenis obat untuk dropdow
         return view('obat.edit', compact('obat', 'jenisObat'));
     }
 
@@ -51,11 +49,9 @@ class ObatController extends Controller
     public function update(Request $request, $kode)
     {
         $request->validate([
-            'obat' => 'required',
-            'fiskk' => 'required',
             'nama_obat' => 'required',
-            'id_jenis_obat' => 'required|exists:jenis_obat,id',
-            'harga_pokok' => 'required|numeric',
+            'jenis_obat' => 'required|exists:jenis_obat,id',
+            'harga_pokok' => 'required|integer',
             'stock' => 'required|integer',
         ]);
 

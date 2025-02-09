@@ -18,7 +18,8 @@ class JenisObatSeeder extends Seeder
             ['satuan' => 'TABLET'],
             ['satuan' => 'PCS'],
             ['satuan' => 'BOTOL'],
-            ['satuan' => 'STRIP'],
+            ['satuan' => 'AMPUL'],
+            ['satuan' => 'CAPSUL'],
             ['satuan' => 'VIAL'],
             ['satuan' => 'TUBE'],
         ];

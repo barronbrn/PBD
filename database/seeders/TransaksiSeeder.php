@@ -33,6 +33,15 @@ class TransaksiSeeder extends Seeder
                 'nilai_fisik' => 106.337,
                 'selisih_nilai' => 16.020,
             ],
+            [
+                'no_transaksi' => '20190501',
+                'kode_obat' => 'CALC TAB',
+                'qty' => 1080,
+                'selisin' => 1081,
+                'nilai_buku' => 1,
+                'nilai_fisik' => 50760,
+                'selisih_nilai' => 50807,
+            ],
         ];
 
         foreach ($data as $item) {
